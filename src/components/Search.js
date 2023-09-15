@@ -17,8 +17,13 @@ export class Search extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.searchUsers(this.state.keyword);
-        this.setState({ keyword: '' });
+
+        if(this.state.keyword === '') {
+            this.props.displayAlert('Anahtar Kelime Giriniz', 'warning');
+        } else {
+            this.props.searchUsers(this.state.keyword);
+            this.setState({ keyword: '' });
+        }
     }
 
     render() {
@@ -30,6 +35,12 @@ export class Search extends Component {
                     <button className="btn btn-primary" type='submit'>Ara</button>
                 </div>
             </form>
+
+            {
+                this.props.showClearButton && <button onClick={this.props.clearResults} className="btn btn-outline-danger mt-2 btn-block">Sonuçları Temizle</button>
+            }
+           
+
         </div>
         )
     }
